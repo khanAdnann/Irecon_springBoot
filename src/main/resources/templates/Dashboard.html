@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./js/common.js"></script>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="./css/styles.css">
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="./js/dashboard.js"></script>
+
+</head>
+<body>
+
+	<!-- Placeholder for the sidebar -->
+	<div id="header-container"></div>
+
+	<div class="d-flex">
+		<!-- Placeholder for Sidebar -->
+		<div id="sidebar-container"></div>
+
+		<!-- Main Content -->
+		<main class="content flex-grow-1 p-4" style="margin-left: 350px;">
+			<div class="container-fluid">
+				<h1 class="mb-4">Welcome to the Dashboard</h1>
+
+				<!-- Statistics Cards -->
+				<div class="row">
+					<div class="col-lg-4 col-12 mb-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="mb-0">Deemed</h4>
+									<div
+										class="icon-shape bg-light-danger text-danger rounded-circle p-3">
+										<i class="fas fa-dollar-sign"></i>
+									</div>
+								</div>
+								<h1 class="mb-2 fw-bold">$93,438.78</h1>
+								<span>Monthly Transaction</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-12 mb-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="mb-0">Orders</h4>
+									<div
+										class="icon-shape bg-light-warning text-warning rounded-circle p-3">
+										<i class="fas fa-shopping-cart"></i>
+									</div>
+								</div>
+								<h1 class="mb-2 fw-bold">42,339</h1>
+								<span>35+ New Sales</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-12 mb-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<h4 class="mb-0">Customers</h4>
+									<div
+										class="icon-shape bg-light-info text-info rounded-circle p-3">
+										<i class="fas fa-users"></i>
+									</div>
+								</div>
+								<h1 class="mb-2 fw-bold">39,354</h1>
+								<span>30+ new in 2 days</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Revenue Chart -->
+				<div class="row">
+					<div class="col-xl-8 col-lg-6 col-12 mb-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<div class="d-flex justify-content-between">
+									<h3 class="mb-1">Switch CBS Mapping</h3>
+
+									<input type="date"
+										class="form-control rounded-pill shadow-sm text-center"
+										id="fileDate2" name="fileDate2" placeholder="YYYY/MM/DD"
+										style="width: 230px;" autocomplete="off"
+										onchange="filterByDate()" required />
+
+
+								</div>
+								<div id="revenueChart" class="mt-4 text-center">
+									<table
+										class="table table-centered table-borderless text-nowrap table-hover">
+										<thead class="bg-light">
+											<tr>
+												<th scope="col"></th>
+												<th scope="col"></th>
+
+												<th scope="col"></th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="mappingBean : ${mappinDetails}">
+
+												<td><span th:if="${mappingBean.fileType == 'MAPPING1'}">Switch</span>
+													<span th:if="${mappingBean.fileType == 'MAPPING2'}">CBS</span></td>
+												<td
+													th:text="${#strings.replace(mappingBean.filedate, '/', '-')}"></td>
+
+
+
+
+												<td th:text="${mappingBean.Count}"></td>
+
+												<td><span th:if="${mappingBean.uploadStatus == 'Y'}"
+													class="badge bg-success">Success </span> <span
+													th:if="${mappingBean.uploadStatus == 'N'}"
+													class="badge bg-warning text-dark">Pending</span></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Total Sales -->
+					<div class="col-xl-4 col-lg-6 col-12 mb-4">
+						<div class="card h-100">
+							<div class="card-body text-center">
+								<h3 class="mb-3">Total Correction</h3>
+								<div id="totalSale" class="mt-3">
+									<p class="text-muted">Upcoming data</p>
+								</div>
+								<ul class="list-unstyled text-start mt-4">
+									<li><i class="fas fa-circle text-primary"></i> Debit:
+										$32.98 (2%)</li>
+									<li><i class="fas fa-circle text-warning"></i> Refunds:
+										$11 (11%)</li>
+									<li><i class="fas fa-circle text-danger"></i> Credit:
+										$14.87 (1%)</li>
+									<li><i class="fas fa-circle text-info"></i> Reversal: 3,271
+										(86%)</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Sales Overview and Notifications -->
+				<div class="row">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-6">
+
+						<!-- card -->
+						<div class="card h-100 card-lg">
+							<!-- card body -->
+							<div class="card-body p-6">
+
+								<div class="d-flex justify-content-between">
+									<h3 class="mb-1">Recon Status</h3>
+
+									<small id="dateDisplay" th:text="'(' + ${Date} + ')'"></small>
+
+									<input type="date"
+										class="form-control rounded-pill shadow-sm text-center"
+										id="fileDate3" name="fileDate3" placeholder="filter"
+										style="width: 230px;" autocomplete="off"
+										onchange="filterByDate3()" required />
+
+
+								</div>
+								<div class="mt-6">
+									<!-- text -->
+									<div class="table-responsive">
+										<table
+											class="table table-centered table-borderless text-nowrap table-hover">
+											<thead class="bg-light">
+												<tr>
+													<th scope="col"></th>
+													<th scope="col">NFS</th>
+													<th scope="col">JCB</th>
+													<th scope="col">DFS</th>
+													<th scope="col">ICD</th>
+													<th scope="col">CTC</th>
+													<th scope="col">ICCW</th>
+													<th scope="col">RUPAY</th>
+													<th scope="col">VISA</th>
+
+													<th scope="col">MASTERCARD</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>ACQUIRER</td>
+													<td><span th:if="${acquirerReconStatus['NFS'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${acquirerReconStatus['NFS'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+
+													<td><span th:if="${acquirerReconStatus['JCB'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${acquirerReconStatus['JCB'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${acquirerReconStatus['DFS'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${acquirerReconStatus['DFS'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${acquirerReconStatus['ICD'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${acquirerReconStatus['ICD'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${acquirerReconStatus['CTC'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${acquirerReconStatus['CTC'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span
+														th:if="${acquirerReconStatus['ICCW'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${acquirerReconStatus['ICCW'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span
+														th:if="${acquirerReconStatus['RUPAY'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${acquirerReconStatus['RUPAY'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td>
+														<!-- Check complex values first --> <span
+														th:if="${acquirerReconStatus['VISA'] == 'N,N'}"
+														class="badge bg-warning text-dark">DOM & INT
+															Pending</span> <span
+														th:if="${acquirerReconStatus['VISA'] == 'N,Y'}"
+														class="badge bg-warning text-dark">DOM Pending, INT
+															Success</span> <span
+														th:if="${acquirerReconStatus['VISA'] == 'Y,N'}"
+														class="badge bg-warning text-dark">DOM Success, INT
+															Pending</span> <span
+														th:if="${acquirerReconStatus['VISA'] == 'Y,Y'}"
+														class="badge bg-success">DOM & INT Success</span> <!-- Then check simple values -->
+														<span th:if="${acquirerReconStatus['VISA'] == 'Y'}"
+														class="badge bg-success">Success</span> <span
+														th:if="${acquirerReconStatus['VISA'] == 'N'}"
+														class="badge bg-danger">Pending</span>
+													</td>
+
+													<td><span
+														th:if="${acquirerReconStatus['MASTERCARD'] == 'N,N'}"
+														class="badge bg-warning text-dark">DOM & INT
+															Pending</span> <span
+														th:if="${acquirerReconStatus['MASTERCARD'] == 'N,Y'}"
+														class="badge bg-warning text-dark">DOM Pending, INT
+															Success</span> <span
+														th:if="${acquirerReconStatus['MASTERCARD'] == 'Y,N'}"
+														class="badge bg-warning text-dark">DOM Success, INT
+															Pending</span> <span
+														th:if="${acquirerReconStatus['MASTERCARD'] == 'Y,Y'}"
+														class="badge bg-success">DOM & INT Success</span> <!-- Then check simple values -->
+														<span th:if="${acquirerReconStatus['MASTERCARD'] == 'Y'}"
+														class="badge bg-success">Success</span> <span
+														th:if="${acquirerReconStatus['MASTERCARD'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+
+
+
+												</tr>
+												<tr>
+													<td>ISSUER</td>
+													<td><span th:if="${issuerReconStatus['NFS'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['NFS'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+
+													<td><span th:if="${issuerReconStatus['JCB'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['JCB'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${issuerReconStatus['DFS'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['DFS'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${issuerReconStatus['ICD'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['ICD'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${issuerReconStatus['CTC'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['CTC'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+														
+													<td><span th:if="${issuerReconStatus['ICCW'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['ICCW'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${issuerReconStatus['RUPAY'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['RUPAY'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+													<td><span th:if="${issuerReconStatus['VISA'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['VISA'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+
+													<td><span
+														th:if="${issuerReconStatus['MATERCARD'] == 'Y'}"
+														class="badge bg-success">Success </span> <span
+														th:if="${issuerReconStatus['MASTERCARD'] == 'N'}"
+														class="badge bg-danger">Pending</span></td>
+
+
+												</tr>
+
+
+
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						'
+					</div>
+
+				</div>
+				<!-- Recent Orders -->
+				<div class="row  mt-4">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-6">
+						<div class="card h-100 card-lg">
+							<!-- heading -->
+						<div class="card-body p-6">
+								<div class="d-flex justify-content-between">
+									<h3 class="mb-1">Upload Status</h3>
+								
+									<input type="date"
+										class="form-control rounded-pill shadow-sm text-center"
+										id="fileDate" name="fileDate" style="width: 230px;"
+										placeholder="filter" onchange="filterlink()"
+										autocomplete="off" required />
+
+
+								</div>
+
+
+
+
+								<div class="mt-6">
+									<!-- table -->
+									<div class="table-responsive">
+										<table
+											class="table table-centered table-borderless text-nowrap table-hover">
+											<thead class="bg-light">
+												<tr>
+													<th scope="col" ><select id="fileTypeFilter"
+														class="form-select form-select-sm mt-1"
+														style="border-radius: 3px; width: 40%;">
+															<option value="">Select</option>
+															<option value="NFS">NFS</option>
+															<option value="JCB">JCB</option>
+															<option value="DFS">DFS</option>
+															<option value="ICD">ICD</option>
+															<option value="RUPAY">RUPAY</option>
+															<option value="QSPARC">QSPARC</option>
+															<option value="VISA">VISA</option>
+															<option value="MASTERCARD">MASTERCARD</option>
+													</select></th>
+													<th scope="col">Date</th>
+													<th scope="col">Name</th>
+
+													<th scope="col">Count</th>
+													<th scope="col">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="uploadBean : ${uploadDtl}">
+													<td th:text="${uploadBean.fileType}"></td>
+													<td id="filedated" th:text="${uploadBean.filedate}"></td>
+													<td th:text="${uploadBean.filename}"></td>
+
+
+
+													<td th:text="${uploadBean.Count}"></td>
+
+													<td><span th:if="${uploadBean.uploadStatus == 'Y'}"
+														class="badge bg-success">Uploaded</span> <span
+														th:if="${uploadBean.uploadStatus == 'N'}"
+														class="badge bg-danger">Not Uploaded</span></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</main>
+	</div>
+
+	<div id="footer-container"></div>
+
+	<div align="center" id="Loader"
+		style="background-color: #ffffff; position: absolute; opacity: 0.9; z-index: 0; height: 100%; width: 100%; left: 0px; top: 0px; display: none">
+
+		<img style="margin-left: 100px; margin-top: 130px;"
+			src="./images/loader.gif" alt="loader">
+	</div>
+
+
+</body>
+
+<script>
+document.getElementById('fileTypeFilter').addEventListener('change', function(event) {
+    event.preventDefault(); // Stops any accidental form submission
+    event.stopPropagation(); // Stops bubbling up (safety)
+
+    var selectedType = this.value.toUpperCase();
+    var rows = document.querySelectorAll('tbody tr');
+
+    rows.forEach(function(row) {
+        var firstTd = row.querySelector('td');
+        if (firstTd) {
+            var typeCellText = firstTd.textContent.trim().toUpperCase();
+            if (selectedType === '' || typeCellText.includes(selectedType)) {
+                row.style.display = ''; // Show row
+            } else {
+                row.style.display = 'none'; // Hide row
+            }
+        }
+    });
+});
+</script>
+
+</html>
+

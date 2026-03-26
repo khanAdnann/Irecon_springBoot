@@ -1,0 +1,392 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ensure body takes full height */
+body, html {
+    height: 100%;
+}
+
+/* Main Content */
+.content {
+    margin-left: 300px; /* Adjusted to account for sidebar width */
+    margin-top: 80px; /* Adjusted to account for header height */
+    margin-bottom: 80px; /* Adjusted to account for footer height */
+    padding: 20px;
+    width: calc(100% - 300px); /* Adjusted to account for sidebar width */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+
+/* Header Styling */
+.logo-container {
+    position: absolute;
+    left: 0px; /* Align to extreme left */
+    height: 100%; /* Adjust height as needed */
+}
+
+.logo {
+    height: 100%; /* Make the logo fit the container */
+    width: 300px; /* Maintain aspect ratio */
+    margin-left: 0;
+}
+
+.header {
+    background-color: white;
+    color: black;
+    padding: 0;
+    width: 100%;
+    height:60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-end; /* Moves content to the extreme right */
+    align-items: center;
+}
+
+/* Profile Section (Moves "Welcome, User" to the right) */
+.profile {
+    position: relative;
+    display: inline-block;
+	margin-right: 50px;
+
+}
+
+.profile-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.profile-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    background-size: cover;
+   /*  color: #636363; This sets the text color for the sidebar container
+    font-family: sans-serif; New font */
+    color:black;
+    font-family: sans-serif;
+    font-weight: 600;
+    width: 300px;
+    height: calc(100vh - 60px - 60px);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding-top: 20px;
+    z-index: 999;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    margin-bottom: 60px;
+}
+
+/* Scrollbar - Hidden by Default */
+.sidebar::-webkit-scrollbar {
+    width: 5px; /* Slim scrollbar width */
+    background-color: transparent; /* No background */
+}
+
+/* Scrollbar Thumb (Hidden by Default) */
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Hidden thumb */
+    border-radius: 50px; /* Rounded scrollbar */
+     max-height: 10px;
+}
+
+/* Scrollbar Track (Pure White Background) */
+.sidebar::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Pure white background */
+    border-radius: 50px;
+}
+
+/* Show Scrollbar on Sidebar Hover */
+.sidebar:hover::-webkit-scrollbar-thumb {
+    background-color: #D3D3D3; 
+    height: 50px; /* Adjusted length */
+    min-height: 20px; /* Ensures the thumb is not too small */
+}
+
+.sidebar:hover::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Keep background white on hover */
+}
+
+/* For Firefox */
+.sidebar {
+    scrollbar-width: none; /* Hide scrollbar by default */
+}
+
+.sidebar:hover {
+    scrollbar-width: thin;  /* Slim scrollbar appears on hover */
+    scrollbar-color: #D3D3D3 #ffffff; /* Dark grey thumb, white background */
+}
+
+
+/* Sidebar List */
+.sidebar ul {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0; /* Ensure no default margin */
+}
+
+.sidebar ul li {
+    padding: 15px;
+    cursor: pointer; /* Hand cursor on hover */
+}
+
+/* Sidebar Links */
+.sidebar ul li a {
+    color:#636363;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+    color:#636363 ;
+}
+
+/* Hover effect - Only text color changes */
+.sidebar ul li:hover {
+    background-color: transparent !important; 
+}
+
+.sidebar ul li a:hover {
+    color:1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Maintain background color for the clicked (focused) item */
+.sidebar ul li a:focus, 
+.sidebar ul li a:active {
+    background-color:#C8FACC !important; 
+    color: black !important;
+    padding: 12px 15px !important;
+    border-radius: 5px;
+}
+
+.sidebar ul li ul li a:focus, 
+.sidebar ul li a:active {
+    background-color:#C8FACC !important;
+    color: black !important;
+    padding: 12px 15px !important;
+    border-radius: 5px;
+}
+
+/* Nested List Items */
+.sidebar ul ul {
+    padding-left: 0;
+    margin-left: 0px;
+    list-style-type: circle;
+}
+
+.sidebar ul ul li {
+    padding: 10px 10px;
+}
+
+
+
+/* Main Content */
+.content {
+    margin-left: 270px; /* Adjusted to account for sidebar width + shadow */
+    margin-top: 80px; 
+    padding: 20px;
+    width: calc(100% - 270px); /* Adjusted to account for sidebar width + shadow */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.badge.bg-light-info {
+    background-color: #f8f9fa !important; 
+    color: #6c757d !important; 
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+
+.nav-link.disabled {
+    color: #6c757d !important; 
+    cursor: not-allowed;
+    opacity: 0.7; 
+}
+
+/*Rupay logo*/
+.rupay-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*Visa logo*/
+.visa-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*NFS logo*/
+.nfs-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*Mastercard logo*/
+.mastercard-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*JCB logo*/
+.jcb-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*DFS logo*/
+.dfs-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*ICD logo*/
+.icd-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*QSPARC logo*/
+.qsparc-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*Card To Card logo*/
+.cardtocard-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/*Card To Card logo*/
+.iccw-logo {
+    width: 25px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 8px; /* Space between logo and text */
+    vertical-align: middle;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #f8f9fa; /* Light background color */
+    color: #6c757d; /* Text color */
+    font-weight:bold;
+    padding: 10px 0; /* Reduced padding to decrease height */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Fixed height for the footer */
+    z-index: 1000; /* Ensure it's above other content */
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Shadow at the top */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer a {
+   /*  color: #007bff; Link color */
+    text-decoration: none;
+}
+
+footer a {
+    color: #6c757d; /* Default link color */
+    text-decoration: none; /* Ensures links have no underline */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transition effect */
+}
+
+footer a:hover {
+    color:#02ccfe; /* Light green color on hover */
+   /*  background-color:#D5FFFF; Light green background with transparency */
+   /*  border-radius: 4px; */ /* Slight rounding for smooth appearance */
+   /*  padding: 2px 5px; */ /* Padding for better visual effect */
+}
+
+/* calender */
+
+ .flatpickr-calendar {
+    font-size: 1.2rem;
+    width: 320px !important;
+    transform: translateX(-50%) scale(1.1) !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3) !important;
+    left: 50% !important;
+}
+.form-select {
+    --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e);
+    display: block;
+    width: 40%;
+    padding: .375rem 2.25rem .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete File</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/common.js"></script>  
+    <link rel="stylesheet" href="./css/styles.css">  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="./js/DeleteFile.js"></script>
+</head>
+<body>
+
+<!-- Placeholder for Header -->
+<div id="header-container"></div>
+
+<div class="d-flex">
+    <!-- Placeholder for Sidebar -->
+    <div id="sidebar-container"></div>
+
+    <!-- Main Content -->
+    <main class="content d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                <h3 class="text-center mb-4 text-black fw-bold">Delete File</h3>
+                    <div class="card shadow-lg p-4 mt-5 border-0 rounded-4" style="background: linear-gradient(to right, #ffffff, #f8f9fa);">
+                        
+
+                        <form id="processForm">
+                            <!-- FILE TYPE -->
+                             <div class="mb-3 text-center">
+                                <label for="txntype" class="form-label fw-semibold">File Type:</label>
+                                <select class="form-control rounded-pill shadow-sm mx-auto" id="txntype" name="txntype" style="width: 300px;">
+                                    <option value="0">SELECT</option>
+                                    <option value="SWITCH">SWITCH</option>
+                                    <option value="CBS">CBS</option>
+                                    <option value="RUPAY DSCR">RUPAY DSCR</option>
+                                    <option value="RUPAY ALL DISPUTE">RUPAY ALL DISPUTE</option>
+                                    <option value="RUPAY INTERNATIONAL">RUPAY INTERNATIONAL</option>
+                                    <option value="RUPAY DOMESTIC">RUPAY DOMESTIC</option>
+                                    <option value="RUPAY QSPARC">RUPAY QSPARC</option>
+                                    <option value="NFS ISS">NFS ISSUER</option>
+                                    <option value="NFS ACQ">NFS ACQUIRER</option>
+                                    <option value="NFS NTSL">NFS NTSL</option>
+                                    <option value="NFS ADJUSTMENT">NFS ADJUSTMENT</option>
+                                    <option value="NFS LATE REV">NFS LATE REVERSAL</option>
+                                </select>
+                            </div>
+
+                            <!-- Date Input -->
+                            <div class="mb-3 text-center">
+                                <label for="dateInput" class="form-label fw-semibold">Select Date:</label>
+                                <input type="date" class="form-control rounded-pill shadow-sm mx-auto" id="dateInput" name="fromDate" required style="width: 300px;">
+                            </div>
+
+                            <!-- User ID -->
+                            <div class="mb-3 text-center">
+                                <label class="form-label fw-semibold">User ID</label> 
+                                <input class="form-control rounded-pill shadow-sm mx-auto" type="text" id="text2" name="userId" value="1000" style="width: 300px;">
+                            </div>
+
+                            <!-- File Name -->
+                            <div class="mb-3 text-center">
+                                <label class="form-label fw-semibold">File Name</label> 
+                                <input class="form-control rounded-pill shadow-sm mx-auto" type="text" id="text3" name="fileName" style="width: 300px;">
+                            </div>
+
+                            <!-- Cycle -->
+                            <div class="mb-3 text-center">
+                                <label class="form-label fw-semibold">Cycle</label> 
+                                <input class="form-control rounded-pill shadow-sm mx-auto" type="text" id="text4" name="cycle" style="width: 300px;">
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="text-center">
+                                <button type="button" class="btn btn-danger fw-bold rounded-pill shadow" id="delete">
+                                    Delete
+                                </button>
+                                &nbsp;&nbsp;
+                                <button type="button" class="btn btn-secondary fw-bold rounded-pill shadow" id="refresh">
+                                    Refresh
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+	<div align="center" id="Loader"
+		style="background-color: #ffffff; position: absolute; opacity: 0.9; z-index: 0; height: 100%; width: 100%; left: 0px; top: 0px; display: none">
+
+		<img style="margin-left: 100px; margin-top: 130px;"
+			src="./images/loader.gif" alt="loader">
+	</div>
+
+
+</body>
+</html>

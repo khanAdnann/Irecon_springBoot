@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./js/common.js"></script>
+<link rel="stylesheet" href="./css/styles.css">
+<link rel="stylesheet" href="./css/Logo.css">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+</head>
+<style>
+.profile {
+			position: relative;
+			display: inline-block;
+		}
+		.profile-dropdown {
+			display: none;
+			position: absolute;
+			right: 0;
+			background-color: white;
+			border: 1px solid #ddd;
+			padding: 10px;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			z-index: 1000;
+		}
+		.profile-dropdown a {
+			display: block;
+			padding: 5px 0;
+			color: black;
+			text-decoration: none;
+		}
+		.profile-dropdown a:hover {
+			background-color: #f0f0f0;
+		}
+</style>
+
+<body>
+	<!-- Header Fragment -->
+	<header class="header">
+		<div class="logo-container">
+			<img src="./image/Logo/logo.png" alt="PNB Logo" class="logo">
+		</div>
+<div class="profile">
+		<button id="profileButton" class="profile-btn">
+			<i class="fas fa-user-circle p-2"></i> <span>Welcome, User</span>
+		</button>
+		<div id="profileDropdown" class="profile-dropdown">
+			<a href="/idbi/profile"><i class="fas fa-user"></i> View Profile</a>
+			<a href="/idbi/settings"><i class="fas fa-cog"></i> Settings</a> 
+			<a href="/I-RECON/auth/login"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		</div>
+	</div>
+	</header>
+
+
+	<!-- Sidebar Fragment -->
+	<nav class="sidebar">
+		<ul class="list-unstyled">
+			<li><a href="dashboard"><i class="fas fa-home"></i>
+					Dashboard &nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<small class="badge bg-success">NEW</small></a></li>
+
+			<!-- Main File Process Dropdown -->
+			<li><a href="#" data-bs-toggle="collapse"
+				data-bs-target="#mainFileProcessMenu" aria-expanded="false"
+				aria-controls="mainFileProcessMenu"> <i
+					class="fas fa-file-alt me-2"></i>Main File Process <i
+					class="fas fa-chevron-down ms-auto"></i>
+			</a>
+				<ul class="collapse list-unstyled" id="mainFileProcessMenu">
+
+					<li><a href="mainFileUpload"><i
+							class="fa-solid fa-file-arrow-up"></i>Raw File Upload</a></li>
+					<li><a href="switchFileUpload"><i
+							class="fa-solid fa-clipboard"></i>Switch File Upload</a></li>
+					<li><a href="cbsFilesUpload"><i
+							class="fa-solid fa-clipboard"></i>Cbs File Upload</a></li>
+					<!-- <li><a href="#"><i class="fa-solid fa-clipboard"></i>Main
+							File Upload Details</a></li>
+					<li><a href="#"><i class="fa-solid fa-clipboard"></i>Main
+							File Source Details</a></li> -->
+				</ul></li>
+
+			<!-- Map Uploaded Details Dropdown -->
+			<li><a href="#" data-bs-toggle="collapse"
+				data-bs-target="#mapUploadedDetailsMenu" aria-expanded="false"
+				aria-controls="mapUploadedDetailsMenu"> <i
+					class="fas fa-exchange-alt"></i> Map Uploaded Details <i
+					class="fas fa-chevron-down ms-auto"></i>
+			</a>
+				<ul class="collapse list-unstyled" id="mapUploadedDetailsMenu">
+					<li><a href="mapSwitchData">Map Switch Data</a></li>
+					<li><a href="map_cbs_data">Map CBS Data</a></li>
+				</ul></li>
+
+			<!-- View Uploaded Details Process -->
+			<li><a href="#" data-bs-toggle="collapse"
+				data-bs-target="#viewuploadeddetails" aria-expanded="false"
+				aria-controls="viewuploadeddetails"> <i
+					class="fas fa-exchange-alt"></i> View Uploaded Details <i
+					class="fas fa-chevron-down ms-auto"></i>
+			</a>
+				<ul class="collapse list-unstyled" id="viewuploadeddetails">
+					<li><a href="view_file_upload">View File Upload</a></li>
+					<li><a href="view_switch_before_mapping">View Switch
+							Before Mapping</a></li>
+					<li><a href="view_cbs_before_mapping">View CBS Before
+							Mapping</a></li>
+					<li><a href="view_raw_data_count">View Raw Data Count</a></li>
+					<li><a href="delete_file">Delete File</a></li>
+					<li><a href="increase_file">Increase File</a></li>
+				</ul></li>
+
+			<!-- Networks Dropdown -->
+			<li><a href="#" data-bs-toggle="collapse"
+				data-bs-target="#Networks" aria-expanded="false"
+				aria-controls="mapUploadedDetailsMenu"> <i
+					class="fa-solid fa-wifi"></i> Networks <i
+					class="fas fa-chevron-down ms-auto"></i>
+			</a>
+				<ul class="collapse list-unstyled" id="Networks">
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#RUPAY" aria-expanded="false"
+						aria-controls="RUPAY"> <img src="./image/Logo/Rupay-Logo.png"
+							alt="RuPay Logo" class="rupay-logo"> RUPAY
+					</a>
+						<ul class="collapse list-unstyled" id="RUPAY">
+							<li><a href="process?category=Rupay&option=Recon Process">Recon
+									Process</a></li>
+							<li><a href="TTUM?category=Rupay&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a href="report?category=Rupay&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a href="rupayPresentmentFileUpload">Presentment
+									Upload</a></li>
+							<li><a href="rupayAdjustmentUpload">Adjustment Upload</a></li>
+							<li><a href="rupay_settlement_file_upload">Settlement
+									Upload</a></li>
+							<li><a
+								href="Adjustment_Process?category=Rupay&option=Adjustment Process">Adjustment
+									Process</a></li>
+							<li><a href="rupay_settlement_process">Settlement
+									Process</a></li>
+						</ul></li>
+
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#qsparc" aria-expanded="false"
+						aria-controls="qsparc"> <img
+							src="./image/Logo/Qsparc-Logo.png" alt="Qsparc Logo"
+							class="qsparc-logo"> QSPARC
+					</a>
+						<ul class="collapse list-unstyled" id="qsparc">
+							<li><a href="qsparcPresentmentFileUpload">Presentment
+									Upload</a></li>
+							<li><a href="qsparcAdjustmentUpload">Adjustment Upload</a></li>
+							<li><a href="qpsarc_settlement_file_upload">Settlement
+									Upload</a></li>
+							<li><a
+								href="Adjustment_Process?category=QSPARC&option=Adjustment Process">Adjustment
+									Process</a></li>
+							<li><a href="qsparc_settlement_process">Settlement
+									Process</a></li>
+						</ul></li>
+
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#VISA" aria-expanded="false" aria-controls="VISA">
+							<img src="./image/Logo/Visa-Logo.png" alt="Visa Logo"
+							class="visa-logo"> VISA
+					</a>
+						<ul class="collapse list-unstyled" id="VISA">
+							<li><a
+								href="process?category=Visa&option=Issuer Recon Process">Issuer
+									Recon Process</a></li>
+							<li><a
+								href="process?category=Visa&option=Acquirer Recon Process">Acquirer
+									Recon Process</a></li>
+							<li><a
+								href="process?category=Visa&option=Cross Recon Process">Cross
+									Recon Process</a></li>
+							<li><a
+								href="report?category=Visa&option=Generate Issuer Report">Generate
+									Issuer Reports</a></li>
+							<li><a
+								href="report?category=Rupay&option=Generate Acquirer Report">Generate
+									Acquirer Reports</a></li>
+							<li><a href="TTUM?category=Visa&option=Generate Issuer TTUM">Generate
+									Issuer TTUM</a></li>
+							<li><a
+								href="TTUM?category=Visa&option=Generate Acquirer TTUM">Generate
+									Acquirer TTUM</a></li>
+							<li><a href="ep_file_upload">EP File Upload</a></li>
+							<li><a href="settlement_process">Settlement Process</a></li>
+							<li><a href="update_dollar_rate">Update Dollar Rate</a></li>
+							<li><a href="adjustment_upload">Adjustment Upload</a></li>
+						</ul></li>
+
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#nfs" aria-expanded="false" aria-controls="nfs">
+							<img src="./image/Logo/Nfs-Logo.png" alt="Nfs Logo"
+							class="nfs-logo"> NFS
+					</a>
+						<ul class="collapse list-unstyled" id="nfs">
+							<li><a href="process?category=NFS&option=Recon Process">Recon
+									Process</a></li>
+							<li><a href="TTUM?category=NFS&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a href="report?category=NFS&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a href="nfsNtslUpload">NTSL Upload</a></li>
+							<li><a href="nfsAdjustmentUpload">Adjustment Upload</a></li>
+							<li><a
+								href="Adjustment_Process?category=NFS&option=Adjustment Process">Adjustment
+									Process</a></li>
+							<li><a href="nfs_settlement_process">Settlement Process</a></li>
+						</ul></li>
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#jcb" aria-expanded="false" aria-controls="jcb">
+							<img src="./image/Logo/Jcb-Logo.png" alt="Jcb Logo"
+							class="jcb-logo"> JCB
+					</a>
+						<ul class="collapse list-unstyled" id="jcb">
+							<li><a href="process?category=JCB&option=Recon Process">Recon
+									Process</a></li>
+							<li><a href="TTUM?category=JCB&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a href="report?category=JCB&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a href="jcbNtslUpload">NTSL Upload</a></li>
+							<li><a href="jcb_adjustment_file_upload">Adjustment
+									Upload</a></li>
+							<li><a
+								href="Adjustment_Process?category=JCB&option=Adjustment Process">Adjustment
+									Process</a></li>
+							<li><a href="jcb_settlement_process">Settlement Process</a></li>
+						</ul></li>
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#dfs" aria-expanded="false" aria-controls="dfs">
+							<img src="./image/Logo/DFS-Logo.png" alt="DFS Logo"
+							class="dfs-logo"> DFS
+					</a>
+						<ul class="collapse list-unstyled" id="dfs">
+							<li><a href="process?category=DFS&option=Recon Process">Recon
+									Process</a></li>
+							<li><a href="TTUM?category=DFS&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a href="report?category=DFS&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a href="dfsNtslUpload">NTSL Upload</a></li>
+							<li><a href="dfs_adjustment_upload">Adjustment Upload</a></li>
+							<li><a
+								href="Adjustment_Process?category=DFS&option=Adjustment Process">Adjustment
+									Process</a></li>
+							<li><a href="dfs_settlement_process">Settlement Process</a></li>
+						</ul></li>
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#iccw" aria-expanded="false" aria-controls="iccw">
+							<img src="./image/Logo/ICCW-Logo.png" alt="Iccw Logo"
+							class="iccw-logo"> ICCW
+					</a>
+						<ul class="collapse list-unstyled" id="iccw">
+							<li><a href="process?category=ICCW&option=Recon Process">Recon
+									Process</a></li>
+							<li><a href="TTUM?category=ICCW&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a href="report?category=ICCW&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a
+								href="Adjustment_Process?category=ICCW&option=Adjustment Process">Adjustment
+									Process</a></li>
+						</ul></li>
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#icd" aria-expanded="false" aria-controls="icd">
+							<img src="./image/Logo/Icd-Logo.png" alt="Icd Logo"
+							class="icd-logo"> ICD
+					</a>
+						<ul class="collapse list-unstyled" id="icd">
+							<li><a href="process?category=ICD&option=Recon Process">Recon
+									Process</a></li>
+							<li><a href="TTUM?category=ICD&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a href="report?category=ICD&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a href="#">Deem Accept File Upload</a></li>
+							<li><a href="icdNtslUpload">NTSL Upload</a></li>
+							<li><a href="icd_adjustment_upload">Adjustment Upload</a></li>
+							<li><a
+								href="Adjustment_Process?category=ICD&option=Adjustment Process">Adjustment
+									Process</a></li>
+							<li><a href="icd_settlement_process">Settlement Process</a></li>
+						</ul></li>
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#mastercard" aria-expanded="false"
+						aria-controls="mastercard"> <img
+							src="./image/Logo/Mastercard-Logo.png" alt="Mastercard Logo"
+							class="mastercard-logo"> MASTERCARD
+					</a>
+						<ul class="collapse list-unstyled" id="mastercard">
+							<li><a
+								href="process?category=Mastercard&option=Recon Process">Recon
+									Process</a></li>
+							<li><a href="mastercard_cross_recon">Cross Recon Process</a></li>
+							<li><a
+								href="report?category=Mastercard&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a href="TTUM?category=Mastercard&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a href="mastercard_settlement_upload">Settlement
+									Upload</a></li>
+							<li><a href="mastercard_t057_file_upload">T057 File
+									Upload</a></li>
+							<li><a href="mastercard_invoice_file_upload">Invoice
+									File Upload</a></li>
+							<li><a href="mastercard_settlement_process">Settlement
+									Process</a></li>
+							<li><a
+								href="Adjustment_Process?category=Mastercard&option=Adjustment Process">Adjustment
+									Process</a></li>
+							<li><a href="#">Generate ChargeBack</a></li>
+						</ul></li>
+
+					<li><a href="#" data-bs-toggle="collapse"
+						data-bs-target="#cardtocard" aria-expanded="false"
+						aria-controls="cardtocard"> <img
+							src="./image/Logo/Card-To-Card.png" alt="Cardtocard Logo"
+							class="cardtocard-logo"> CARD TO CARD
+					</a>
+						<ul class="collapse list-unstyled" id="cardtocard">
+							<li><a
+								href="process?category=Card-To-Card&option=Recon Process">Recon
+									Process</a></li>
+							<li><a
+								href="TTUM?category=Card-To-Card&option=Generate TTUM">Generate
+									TTUM</a></li>
+							<li><a
+								href="report?category=Card-To-Card&option= Generate Report">Generate
+									Reports</a></li>
+							<li><a href="#">Settlement Download</a></li>
+						</ul></li>
+
+				</ul></li>
+
+			<!-- Finacle Process -->
+			<li><a href="#" data-bs-toggle="collapse"
+				data-bs-target="#finacleprocess" aria-expanded="false"
+				aria-controls="finacleprocess"> <i class="fas fa-exchange-alt"></i>
+					Finacle Process <i class="fas fa-chevron-down ms-auto"></i>
+			</a>
+				<ul class="collapse list-unstyled" id="finacleprocess">
+					<li><a href="suspect_file_upload">Suspect Upload</a></li>
+					<li><a href="#">Accept & Reject File Upload</a></li>
+					<li><a href="finacle_ttum">Finacle TTM Process</a></li>
+					<li><a href="#">Vendor Accept TTUM</a></li>
+					<li><a href="#">Branch Reject TTUM</a></li>
+				</ul></li>
+
+			<!-- Extract Raw Data Process -->
+			<li><a href="#" data-bs-toggle="collapse"
+				data-bs-target="#extractrawdata" aria-expanded="false"
+				aria-controls="extractrawdata"> <i class="fas fa-exchange-alt"></i>
+					Extract Raw Data <i class="fas fa-chevron-down ms-auto"></i>
+			</a>
+				<ul class="collapse list-unstyled" id="extractrawdata">
+					<li><a href="extract?category=Extract&option=Switch RawData">Extract
+							SWITCH</a></li>
+					<li><a href="extract?category=Extract&option=CBS RawData">Extract
+							CBS</a></li>
+					<li><a href="extract?category=Extract&option=VISA RawData">Extract
+							VISA</a></li>
+					<li><a href="extract?category=Extract&option=NFS RawData">Extract
+							NFS</a></li>
+					<li><a href="extract?category=Extract&option=JCB RawData">Extract
+							JCB</a></li>
+					<li><a href="extract?category=Extract&option=DFS RawData">Extract
+							DFS</a></li>
+					<li><a href="extract?category=Extract&option=ICD RawData">Extract
+							ICD</a></li>
+					<li><a
+						href="extract?category=Extract&option=RUPAY_INT RawData">Extract
+							RUPAY INT</a></li>
+					<li><a
+						href="extract?category=Extract&option=RUPAY_DOM RawData">Extract
+							RUPAY DOM</a></li>
+					<li><a
+						href="extract?category=Extract&option=QSPARC_DOM RawData">Extract
+							QSPARC DOM</a></li>
+					<li><a
+						href="extract?category=Extract&option=MASTERCARD_POS RawData">Extract
+							MASTERCARD POS</a></li>
+					<li><a
+						href="extract?category=Extract&option=MASTERCARD_ATM RawData">Extract
+							MASTERCARD ATM</a></li>
+				</ul></li>
+
+
+			<!-- Customers Dropdown -->
+			<li><a href="#" data-bs-toggle="collapse"
+				data-bs-target="#customers" aria-expanded="false"
+				aria-controls="customers"> <i class="fa-solid fa-users"></i>
+					Users <i class="fas fa-chevron-down ms-auto"></i>
+			</a>
+				<ul class="collapse list-unstyled" id="customers">
+					<li><a href="#">Customers</a></li>
+					<li><a href="create_customer">Create Customers</a></li>
+					<li><a href="edit_user">Edit Customers</a></li>
+				</ul></li>
+
+
+
+			<!-- Logout -->
+			<li><a href="/I-RECON/"><i class="fas fa-sign-out-alt"></i>
+					Logout</a></li>
+
+			<!-- Support Section (Always Visible "Coming Soon") -->
+			<li class="nav-item mt-6 mb-3"><span
+				class="d-flex align-items-center"> <i
+					class="fas fa-exchange-alt"></i> <span class="ms-2">Support</span>
+					<span class="badge bg-light-info text-dark-info ms-2">Coming
+						Soon</span> <!-- Always visible -->
+			</span> <!-- Submenu (Support Ticket & Help Center) -->
+				<ul class="submenu ps-4">
+					<li class="nav-item"><a class="nav-link disabled" href="#">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-headphones"></i></span>
+								<span class="nav-link-text ms-2">Support Ticket</span>
+							</div>
+					</a></li>
+					<li class="nav-item"><a class="nav-link disabled" href="#">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i
+									class="bi bi-question-circle"></i></span> <span
+									class="nav-link-text ms-2">Help Center</span>
+							</div>
+					</a></li>
+				</ul></li>
+
+		</ul>
+	</nav>
+
+	<!-- Footer -->
+	<footer class="footer text-center py-3">
+		<div class="container">
+			<span> &copy; 2025 <a href="http://www.idbiintech.com/">IDBI INTECH LTD</a> All Rights Reserved | <a href="#">Privacy Policy</a> | <a
+				href="#">Terms of Service</a>
+			</span>
+		</div>
+	</footer>
+
+</body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const profileButton = document.getElementById('profileButton');
+	const profileDropdown = document.getElementById('profileDropdown');
+debugger;
+	profileButton.addEventListener('click', function(event) {
+		event.stopPropagation();
+		const isVisible = profileDropdown.style.display === 'block';
+		profileDropdown.style.display = isVisible ? 'none' : 'block';
+	});
+
+	document.addEventListener('click', function() {
+		profileDropdown.style.display = 'none';
+	});
+});
+</script>
+</html>

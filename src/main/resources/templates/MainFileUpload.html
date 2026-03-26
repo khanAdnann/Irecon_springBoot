@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulk File Upload</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./js/common.js"></script>
+<link rel="stylesheet" href="./css/styles.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="./js/MainFileUpload.js"></script>
+</head>
+<body>
+
+	<!-- Placeholder for Header -->
+	<div id="header-container"></div>
+
+	<div class="d-flex">
+		<!-- Sidebar with fixed width -->
+		<div id="sidebar-container"></div>
+
+
+		<!-- Main Content -->
+		<main class="content d-flex justify-content-center align-items-center">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-6">
+						<h3 class="text-center mb-4 text-dark fw-bold">Upload Raw
+							Files</h3>
+						<div class="card shadow-lg p-4 border-0 rounded-4"
+							style="background: linear-gradient(to right, #ffffff, #f8f9fa);">
+
+
+
+							<form id="bulkUploadForm">
+								<!-- Date Input -->
+								<div class="mb-3 text-center">
+									<label for="dateInput" class="form-label fw-semibold">Select
+										Date:</label> <input type="text"
+										class="form-control rounded-pill shadow-sm text-center"
+										id="dateInput" autocomplete="off" name="fileDate" placeholder="YYYY/MM/DD"
+										required>
+
+								</div>
+
+
+								<!-- Category -->
+								<div class="mb-3 text-center">
+									<label for="category" class="form-label fw-semibold">Category:</label>
+									<select id="category" name="category"
+										class="form-control rounded-pill shadow-sm"
+										onchange="setfilename(this);">
+										<option value="">SELECT</option>
+										<option value="NFS">NFS</option>
+										<option value="RUPAY">RUPAY</option>
+							
+										<option value="VISA">VISA</option>
+										<option value="MASTERCARD">MASTERCARD</option>
+										<option value="QSPARC">QSPARC</option>
+										<option value="ICD">ICD</option>
+										<option value="DFS">DFS</option>
+										<option value="JCB">JCB</option>
+										<option value="ICCW">ICCW</option>
+										<option value="CARDTOCARD">CARD TO CARD</option>
+									</select>
+								</div>
+
+								<!-- Sub-Category -->
+								<div class="mb-3 text-cent
+								er" id="subcategory"
+									style="display: none">
+									<label for="subcategory" class="form-label fw-semibold">SubCategory:</label>
+									<select id="subcategoryIA" name="subcategoryIA"
+										class="form-control rounded-pill shadow-sm">
+										<option value="">SELECT</option>
+										<option value="ACQUIRER">ACQUIRER</option>
+										<option value="ISSUER">ISSUER</option>
+									</select>
+								</div>
+
+								<div class="mb-3 text-center" id="subcategory2"
+									style="display: none">
+									<label for="subcategory2" class="form-label fw-semibold">SubCategory:</label>
+									<select id="subcategory2DI" name="subcategory2DI"
+										class="form-control rounded-pill shadow-sm">
+										<option value="">SELECT</option>
+										<option value="DOMESTIC">DOMESTIC</option>
+										<option value="INTERNATIONAL">INTERNATIONAL</option>
+									</select>
+								</div>
+
+								<div class="mb-3 text-center" id="subcategory3"
+									style="display: none">
+									<label for="subcategory3" class="form-label fw-semibold">SubCategory:</label>
+									<select id="subcategory2AP" name="subcategory2AP"
+										class="form-control rounded-pill shadow-sm">
+										<option value="">SELECT</option>
+										<option value="ATM">ATM</option>
+										<option value="POS">POS</option>
+									</select>
+								</div>
+								<div class="mb-3 text-center" id="subcategory4"
+									style="display: none">
+									<label for="subcategory4" class="form-label fw-semibold">SubCategory:</label>
+									<select id="subcategory4AP" name="subcategory4AP"
+										class="form-control rounded-pill shadow-sm">
+										<option value="">SELECT</option>
+										<option value="ACQUIRER">ACQUIRER</option>
+										<option value="ISSUER">ISSUER</option>
+											<option value="REV_REPORT">REVERSAL REPORT</option>
+										
+									</select>
+								</div>
+
+								<!-- File Input -->
+								<div class="mb-3 text-center">
+									<label for="fileUpload" class="form-label fw-semibold">Upload
+										Files:</label>
+									<div class="input-group">
+										<span
+											class="input-group-text bg-primary text-white rounded-start-pill">
+											<i class="fa-solid fa-file-upload"></i>
+										</span> <input type="file"
+											class="form-control rounded-end-pill shadow-sm"
+											id="fileUpload" name="files" multiple required>
+									</div>
+								</div>
+
+								<!-- Submit Button -->
+								<div class="text-center">
+									<button type="submit"
+										class="btn btn-primary col-md-6 fw-bold rounded-pill shadow">
+										<i class="fa-solid fa-upload"></i> Submit
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- End of Main Content -->
+	</div>
+	<div id="footer-container"></div>
+
+	<!-- Modal for Upload Response -->
+	<div class="modal fade" id="responseModal" tabindex="-1"
+		aria-labelledby="responseModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="responseModalLabel">File Upload
+						Status</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="modalMessage"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div align="center" id="Loader"
+		style="background-color: #ffffff; position: absolute; opacity: 0.9; z-index: 0; height: 100%; width: 100%; left: 0px; top: 0px; display: none">
+
+		<img style="margin-left: 290px; margin-top: 130px;"
+			src="./images/loader.gif" alt="loader">
+	</div>
+
+</body>
+</html>

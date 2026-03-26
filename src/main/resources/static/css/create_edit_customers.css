@@ -1,0 +1,31 @@
+.custom-card {
+    max-width: 800px; /* Increased width */
+    min-height: 450px; /* Increased height */
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: -50px; /* Moves the form closer to the sidebar */
+}
+
+.form-control {
+    border-radius: 8px;
+}
+
+.btn-custom {
+    width: 48%;
+    border-radius: 8px;
+}
+
+.upload-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-section img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    background: #e9ecef;
+}

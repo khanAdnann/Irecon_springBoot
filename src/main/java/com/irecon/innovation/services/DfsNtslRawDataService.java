@@ -1,0 +1,14 @@
+package com.irecon.innovation.services;
+
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+@Service
+public interface DfsNtslRawDataService {
+
+	 public boolean SaveDfsNtslFile(MultipartFile file, String Date);
+	 
+	 
+}
