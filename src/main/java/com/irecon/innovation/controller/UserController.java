@@ -20,71 +20,66 @@ import com.irecon.innovation.services.Impl.UserService;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private EmailService emailService;
-    
-    @Autowired
-    private KafkaProducerService kafkaService;
+	@Autowired
+	private UserService userService;
 
-    @GetMapping("/register_user")
-    public String registerUser() {
-        return "RegisterUser";
-    }
+	@Autowired
+	private EmailService emailService;
 
-    @GetMapping("/forget_password")
-    public String forgetPass() {
-        return "ForgetPassword";
-    }
+	@Autowired
+	private KafkaProducerService kafkaService;
 
-    
-    @PostMapping("/reset_password")
-    public ResponseEntity<?> resetpassword(@RequestParam("userid")String userId,
-    		  @RequestParam(value = "password", required = false) String password){
-    	System.out.println("userId"+password);
-    	
-    	User user = userService.getUserByUserid(userId);
-        if (user == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
-        
-        if(user != null)
-        {
-        	user.setPassword(password);
-        }
-        User updatedUser = userService.updateUser(user);
-        if (updatedUser != null) {
-            return new ResponseEntity<>("Password Reset Successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Failed To Reset", HttpStatus.OK);
-        }
-    	
-    	
-    }
-    
-    @PostMapping("/register_user")
-    public ResponseEntity<?> registerUser(
-            @RequestParam("name") String name,
-            @RequestParam("userid") String userid,
-            @RequestParam("password") String password,
-            @RequestParam("profilePicture") MultipartFile profilePicture,
-            @RequestParam("email") String email) {
+	@GetMapping("/register_user")
+	public String registerUser() {
+		return "RegisterUser";
+	}
 
-        User user = new User();
-        user.setName(name);
-        user.setUserid(userid);
-        user.setPassword(password);
-        user.setEmail(email);
+	@GetMapping("/forget_password")
+	public String forgetPass() {
+		return "ForgetPassword";
+	}
 
-        try {
-            user.setProfilePicture(profilePicture.getBytes());
-        } catch (IOException e) {
-            return new ResponseEntity<>("Failed to process profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+	@PostMapping("/reset_password")
+	public ResponseEntity<?> resetpassword(@RequestParam("userid") String userId,
+			@RequestParam(value = "password", required = false) String password) {
+		System.out.println("userId" + password);
 
-        User newUser = userService.createUser(user);
+		User user = userService.getUserByUserid(userId);
+		if (user == null) {
+			return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+		}
+
+		if (user != null) {
+			user.setPassword(password);
+		}
+		User updatedUser = userService.updateUser(user);
+		if (updatedUser != null) {
+			return new ResponseEntity<>("Password Reset Successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Failed To Reset", HttpStatus.OK);
+		}
+
+	}
+
+	@PostMapping("/register_user")
+	public ResponseEntity<?> registerUser(@RequestParam("name") String name, @RequestParam("userid") String userid,
+			@RequestParam("password") String password, @RequestParam("profilePicture") MultipartFile profilePicture,
+			@RequestParam("email") String email) {
+
+		User user = new User();
+		user.setName(name);
+		user.setUserid(userid);
+		user.setPassword(password);
+		user.setEmail(email);
+
+		try {
+			user.setProfilePicture(profilePicture.getBytes());
+		} catch (IOException e) {
+			return new ResponseEntity<>("Failed to process profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		User newUser = userService.createUser(user);
+
 		/*
 		 * if (newUser != null) {
 		 * 
@@ -94,87 +89,83 @@ public class UserController {
 		 * HttpStatus.OK); } else { return new ResponseEntity<>("Failed To Register",
 		 * HttpStatus.OK); }
 		 */
-        
-        if (newUser != null) {
-        //	kafkaService.sendUserCreateEvent(email);
-            return new ResponseEntity<>("User Registered Successfully ", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Failed To Register", HttpStatus.OK);
-        }
-    }
 
-    @GetMapping(value = { "I-RECON", "/" })
-    public String loginUser() {
-        return "LoginUser";
-    }
+		
+		  if (newUser != null) { 
+			   kafkaService.sendUserCreateEvent(email); return new
+		  ResponseEntity<>("User Registered Successfully ", HttpStatus.OK); } else {
+		  return new ResponseEntity<>("Failed To Register", HttpStatus.OK); }
+		 
+	}
 
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam("userid") String userid, @RequestParam("password") String password) {
-      
-    	
-    	User user = userService.loginUser(userid, password);
-        if (user != null) {
-        	
-        	
-        	
-            return new ResponseEntity<>("Login Successfull", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("USER IS NOT REGISTER PLEASE CONTACT ADMIN", HttpStatus.OK);
-        }
-    }
-    
-    @GetMapping("/create_customer")
-    public String CreateCustomer() {
-    	return "CreateCustomer";
-    }
+	@GetMapping(value = { "I-RECON", "/" })
+	public String loginUser() {
+		return "LoginUser";
+	}
 
-    @GetMapping("/edit_user")
-    public String editUser() {
-        return "EditUser";
-    }
+	@PostMapping("/login")
+	public ResponseEntity<?> loginUser(@RequestParam("userid") String userid,
+			@RequestParam("password") String password) {
 
-    // Fetch user data for editing
-    @GetMapping("/get_user_data")
-    public ResponseEntity<User> getUserData(@RequestParam("userid") String userid) {
-        User user = userService.getUserByUserid(userid);
-        if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+		User user = userService.loginUser(userid, password);
+		if (user != null) {
 
-    // Update user data
-    @PostMapping("/update_user")
-    public ResponseEntity<?> updateUser(
-            @RequestParam("name") String name,
-            @RequestParam("userid") String userid,
-            @RequestParam(value = "password", required = false) String password,
-            @RequestParam(value = "profilePicture", required = false) MultipartFile profilePicture) {
+			return new ResponseEntity<>("Login Successfull", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("USER IS NOT REGISTER PLEASE CONTACT ADMIN", HttpStatus.OK);
+		}
+	}
 
-        User user = userService.getUserByUserid(userid);
-        if (user == null) {
-            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-        }
+	@GetMapping("/create_customer")
+	public String CreateCustomer() {
+		return "CreateCustomer";
+	}
 
-        user.setName(name);
-        if (password != null && !password.isEmpty()) {
-            user.setPassword(password);
-        }
+	@GetMapping("/edit_user")
+	public String editUser() {
+		return "EditUser";
+	}
 
-        if (profilePicture != null && !profilePicture.isEmpty()) {
-            try {
-                user.setProfilePicture(profilePicture.getBytes());
-            } catch (IOException e) {
-                return new ResponseEntity<>("Failed to process profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+	// Fetch user data for editing
+	@GetMapping("/get_user_data")
+	public ResponseEntity<User> getUserData(@RequestParam("userid") String userid) {
+		User user = userService.getUserByUserid(userid);
+		if (user != null) {
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
-        User updatedUser = userService.updateUser(user);
-        if (updatedUser != null) {
-            return new ResponseEntity<>("User Updated Successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Failed To Update", HttpStatus.OK);
-        }
-    }
+	// Update user data
+	@PostMapping("/update_user")
+	public ResponseEntity<?> updateUser(@RequestParam("name") String name, @RequestParam("userid") String userid,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "profilePicture", required = false) MultipartFile profilePicture) {
+
+		User user = userService.getUserByUserid(userid);
+		if (user == null) {
+			return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+		}
+
+		user.setName(name);
+		if (password != null && !password.isEmpty()) {
+			user.setPassword(password);
+		}
+
+		if (profilePicture != null && !profilePicture.isEmpty()) {
+			try {
+				user.setProfilePicture(profilePicture.getBytes());
+			} catch (IOException e) {
+				return new ResponseEntity<>("Failed to process profile picture", HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+
+		User updatedUser = userService.updateUser(user);
+		if (updatedUser != null) {
+			return new ResponseEntity<>("User Updated Successfully", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Failed To Update", HttpStatus.OK);
+		}
+	}
 }
